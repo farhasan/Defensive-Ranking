@@ -25,6 +25,11 @@ for player in playerTraditionalStats:
 
 #remember there is a frontcourt formula and a backcourt formula
 
+def getIDWithName(name):#get player id with name
+    for player in playerTraditionalStats:
+        
+
+
 def accessStatsWithID(ID): #get full list of stats for player
     for player in playerTraditionalStats:
         if (ID == player[0]):
@@ -46,6 +51,16 @@ def getOnCourtRebounding(ID): #get player's team's defensive rebounding percenta
         if(player[4] == ID):
             onCrtRb = player[22]
     return onCrtRb
+
+def getReboundingPct(ID): #gets players drb pct
+    defURLResponse = requests.get(defURL, headers={"USER-AGENT": u_a})
+    defURLResponse.raise_for_status()
+    defStats = defURLResponse.json()['resultSets'][0]['rowSet']
+    drbPCT = 0
+    for player in defStats:
+        if (player[0] == ID):
+            drbPCT = player[12]
+    return drbPCT
 
 def getOnCourtOppFG(ID): #oppoosing team fg while player on court
     playerStats = accessStatsWithID(ID)
@@ -111,7 +126,7 @@ def getFoulsPerMinute(ID): #fouls per minute of play
     fouls = getPF(ID)
     PFM = fouls / minutes
     return PFM
-'''
+
 def getOppPaintPoints(ID): #opponents points in the paint while player is on the floor
     defURLResponse = requests.get(defURL, headers={"USER-AGENT": u_a})
     defURLResponse.raise_for_status()
@@ -131,7 +146,32 @@ def getPointsinPaint(teamID):
         if(team[0] == teamID):
             pointsInThePaint= team[26]
     return pointsInThePaint
-'''
+
+def getPCTTeamPainPoints(teamID, ID): #what percent of the teams paint points come when that player is playing?
+    teamResponse = requests.get(teamStatsScoringURL, headers={"USER-AGENT": u_a})
+    defURLResponse = requests.get(defURL, headers={"USER-AGENT": u_a})
+
+    teamResponse.raise_for_status()
+    defURLResponse.raise_for_status()
+
+    teamStats = teamResponse.json()['resultSets'][0]['rowSet']
+    defStats = defURLResponse.json()['resultSets'][0]['rowSet']
+
+    pointsInThePaint = 0
+    paintPoints = 0
+
+    for team in teamStats:
+        if (team[0] == teamID):
+            pointsInThePaint = team[26]
+
+    for player in defStats:
+        if (player[0] == ID):
+            paintPoints = player[21]
+
+    paintpct = paintPoints/pointsInThePaint
+    return paintpct
+
+
 #difficult to use points in the paint because if you use opponents paint points while player on the floor
 #you need to figure out what percentage of opposing team's points are paint points on average
 #but if a player spends a lot of minutes on the floor it makes sense that those points are scored while
@@ -178,7 +218,7 @@ def contestedShotsPM(ID): #shots contested per minute
 def getFG5(ID): #field goal percentage less than five feet away
     opShotResponse = requests.get(shotURL, headers={"USER-AGENT": u_a})
     opShotResponse.raise_for_status()
-    opShot5Stats = opShotResponse.json()['resultSets'][1]['rowSet']
+    opShot5Stats = opShotResponse.json()['resultSets']['rowSet']
     FiveFG = 0
     for player in opShot5Stats:
         if (player[0] == ID):
@@ -188,7 +228,7 @@ def getFG5(ID): #field goal percentage less than five feet away
 def getFG59(ID): #fg pct 5-9 ft away
     opShotResponse = requests.get(shotURL, headers={"USER-AGENT": u_a})
     opShotResponse.raise_for_status()
-    opShot59Stats = opShotResponse.json()['resultSets'][1]['rowSet']
+    opShot59Stats = opShotResponse.json()['resultSets']['rowSet']
     Five9FG = 0
     for player in opShot59Stats:
         if (player[0] == ID):
@@ -198,7 +238,7 @@ def getFG59(ID): #fg pct 5-9 ft away
 def getFG1014(ID): #fg pct 10-14 away
     opShotResponse = requests.get(shotURL, headers={"USER-AGENT": u_a})
     opShotResponse.raise_for_status()
-    opShot1014Stats = opShotResponse.json()['resultSets'][1]['rowSet']
+    opShot1014Stats = opShotResponse.json()['resultSets']['rowSet']
     Ten14FG = 0
     for player in opShot1014Stats:
         if (player[0] == ID):
@@ -208,7 +248,7 @@ def getFG1014(ID): #fg pct 10-14 away
 def getFG1519(ID): #fg pct 15-19 away
     opShotResponse = requests.get(shotURL, headers={"USER-AGENT": u_a})
     opShotResponse.raise_for_status()
-    opShot1519Stats = opShotResponse.json()['resultSets'][1]['rowSet']
+    opShot1519Stats = opShotResponse.json()['resultSets']['rowSet']
     Fifteen19FG = 0
     for player in opShot1519Stats:
         if (player[0] == ID):
@@ -218,7 +258,7 @@ def getFG1519(ID): #fg pct 15-19 away
 def getFG2024(ID): #fg pct 20-24 away, three point territory
     opShotResponse = requests.get(shotURL, headers={"USER-AGENT": u_a})
     opShotResponse.raise_for_status()
-    opShot2024Stats = opShotResponse.json()['resultSets'][1]['rowSet']
+    opShot2024Stats = opShotResponse.json()['resultSets']['rowSet']
     Twen24FG = 0
     for player in opShot2024Stats:
         if (player[0] == ID):
@@ -228,17 +268,36 @@ def getFG2024(ID): #fg pct 20-24 away, three point territory
 def getFG2529(ID): #fg pct 25-29 away
     opShotResponse = requests.get(shotURL, headers={"USER-AGENT": u_a})
     opShotResponse.raise_for_status()
-    opShot2529Stats = opShotResponse.json()['resultSets'][1]['rowSet']
+    opShot2529Stats = opShotResponse.json()['resultSets']['rowSet']
     Twen29FG = 0
     for player in opShot2529Stats:
         if (player[0] == ID):
             Twen29FG = player[19]
     return Twen29FG
 
-#def frontCourtRating(ID):
+def frontCourtRating(ID):
+    charges = getCharges(ID) * (.5)
+    contestedshots = getContests(ID)
+    blkPct = getBlockPCT(ID)
+    oppTeamFG = getOnCourtOppFG(ID)
+    oppPaintPoints = getOppPaintPoints(ID) * (.75)
+    pfPM = getFoulsPerMinute(ID) * (.75)
+    teamDRB = getOnCourtRebounding(ID) * (.75)
+    drb = getReboundingPct(ID)
+    lessthan5 = getFG5(ID)
+    fg59 = getFG59(ID)
+    fg1014 = getFG1014(ID)
+
+    #how do you determine what score is a good score? it is probably based on context so rank the players first,
+    #see if the rankings resemble actually well ranked players, then go from there
+
+    score = charges + contestedshots + blkPct + oppTeamFG + oppPaintPoints + pfPM + teamDRB + drb + lessthan5 + fg59 + fg1014
+
+    return score
 
 #def backCourtRating(ID):
 
-#backcourt- use deflections(what percent of opponents possessions are deflected?)- * 1, contested shots (needs total amount of opposing shots to get a percentage) * 1, stl pctg * 1, opp to pctg * 2, opp fg * 2, personal foul/minute
-#frontcourt- use charges, contested shots, blk pctg, opp fg, opp team fg on court, blks attemped with pfs, drb%
+#backcourt- use deflections(what percent of opponents possessions are deflected?)- * 1, contested shots (needs total amount of opposing shots to get a percentage) * 1, stl pctg * 1, opp to pctg * 1, opp fg * 1, personal foul/minute * .5,, opponent fg 10-14 * 1, opp fg 15-19 * 1, opp fg 20-24 *1
+#frontcourt- use charges * .5, contested shots * 1, blk pctg * 1, opp team fg on court * 1, blks pctg * 1, pf/min * .75, drb% * 1, opp paint points *(.75) opp fg less than 5 * 1, opponent fg 5-9 *1, opp fg 10-14 *1
 
+#frontCourtRating(201599)
