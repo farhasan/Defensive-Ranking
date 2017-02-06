@@ -309,3 +309,6 @@ def frontCourtRating(ID):
 #frontCourtRating(201599)
 
 #print(getIDWithName("Carmelo Anthony"))
+
+
+#ways to optimize: perform all calls outside of functions, try to make eachs players full stats a list and the corresponding value with a player as a key, quicker access, dont need to make calls in every function
