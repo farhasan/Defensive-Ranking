@@ -21,12 +21,13 @@ playerTraditionalStats = traditionalStats['resultSets'][0]['rowSet']
 playerDict = {}
 
 for player in playerTraditionalStats:
-    playerDict[player[0]] = player[1]
+    playerDict[player[1]] = player[0]
 
 #remember there is a frontcourt formula and a backcourt formula
 
 def getIDWithName(name):#get player id with name
-    for player in playerTraditionalStats:
+    return playerDict[name]
+    print(playerDict[name])
         
 
 
@@ -69,6 +70,9 @@ def getOnCourtOppFG(ID): #oppoosing team fg while player on court
     onoffFGResponse = requests.get(fullOnOffTOUrl, headers={"USER-AGENT": u_a})
     onoffFGResponse.raise_for_status()
     onoffStats = onoffFGResponse.json()['resultSets'][1]["rowSet"]
+
+    onCrtOppFG = 0
+
     for player in onoffStats:
         if (player[4] == ID):
             onCrtOppFG = player[14]
@@ -190,6 +194,8 @@ def getCharges(ID): #charges per game
     hustleResponse = requests.get(hustleURL, headers={"USER-AGENT": u_a})
     hustleResponse.raise_for_status()
     hustleStats = hustleResponse.json()['resultSets'][0]['rowSet']
+    charges = 0
+
     for player in hustleStats:
         if (player[0] == ID):
             charges = player[9]
@@ -301,3 +307,5 @@ def frontCourtRating(ID):
 #frontcourt- use charges * .5, contested shots * 1, blk pctg * 1, opp team fg on court * 1, blks pctg * 1, pf/min * .75, drb% * 1, opp paint points *(.75) opp fg less than 5 * 1, opponent fg 5-9 *1, opp fg 10-14 *1
 
 #frontCourtRating(201599)
+
+#print(getIDWithName("Carmelo Anthony"))
