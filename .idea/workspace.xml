@@ -3,7 +3,6 @@
   <component name="ChangeListManager">
     <list default="true" id="26582ac5-fd07-4d10-8cb2-8f9d0ce4703f" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/defensive_ranking.py" afterPath="$PROJECT_DIR$/defensive_ranking.py" />
     </list>
     <ignored path="defensive_ranking.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -30,8 +29,8 @@
       <file leaf-file-name="defensive_ranking.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/defensive_ranking.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="471">
-              <caret line="313" column="212" lean-forward="false" selection-start-line="313" selection-start-column="212" selection-end-line="313" selection-end-column="212" />
+            <state relative-caret-position="306">
+              <caret line="305" column="198" lean-forward="false" selection-start-line="305" selection-start-column="198" selection-end-line="305" selection-end-column="198" />
               <folding />
             </state>
           </provider>
@@ -40,7 +39,7 @@
       <file leaf-file-name="frontCourtList.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/frontCourtList.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="300">
+            <state relative-caret-position="285">
               <caret line="20" column="89" lean-forward="false" selection-start-line="20" selection-start-column="89" selection-end-line="20" selection-end-column="89" />
               <folding>
                 <element signature="e#0#24#0" expanded="true" />
@@ -113,7 +112,6 @@
     </navigator>
     <panes>
       <pane id="Scope" />
-      <pane id="Scratches" />
       <pane id="ProjectPane">
         <subPane>
           <PATH>
@@ -128,6 +126,7 @@
           </PATH>
         </subPane>
       </pane>
+      <pane id="Scratches" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -388,7 +387,7 @@
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="58" y="75" width="1740" height="924" extended-state="0" />
+    <frame x="58" y="75" width="1740" height="924" extended-state="1" />
     <editor active="true" />
     <layout>
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.13045977" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
@@ -470,9 +469,17 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/defensive_ranking.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="306">
+          <caret line="305" column="198" lean-forward="false" selection-start-line="305" selection-start-column="198" selection-end-line="305" selection-end-column="198" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/frontCourtList.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="300">
+        <state relative-caret-position="285">
           <caret line="20" column="89" lean-forward="false" selection-start-line="20" selection-start-column="89" selection-end-line="20" selection-end-column="89" />
           <folding>
             <element signature="e#0#24#0" expanded="true" />
@@ -484,14 +491,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1035">
           <caret line="69" column="187" lean-forward="false" selection-start-line="69" selection-start-column="187" selection-end-line="69" selection-end-column="187" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/defensive_ranking.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="471">
-          <caret line="313" column="212" lean-forward="false" selection-start-line="313" selection-start-column="212" selection-end-line="313" selection-end-column="212" />
           <folding />
         </state>
       </provider>
